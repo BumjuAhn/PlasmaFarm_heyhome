@@ -3,7 +3,7 @@
 ### 실행하기
 - 그냥 실행
 ```
-python start.py
+python3 start.py
 ```
 - 백그라운드 실행
 ```
