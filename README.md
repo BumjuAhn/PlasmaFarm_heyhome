@@ -1,4 +1,4 @@
-"# PlasmaFarm_heyhome" 
+# PlasmaFarm_heyhome 
 
 ### 실행하기
 - 그냥 실행
