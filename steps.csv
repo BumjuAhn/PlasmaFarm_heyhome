@@ -1,0 +1,8 @@
+description,power1,power2,power3,duration
+Turning ON fog,True,False,True,1200
+Turning OFF fog,False,False,True,2400
+Turning ON plasma,False,True,True,1200
+Turning OFF plasma,False,False,True,2400
+Turning ON fog and plasma,True,True,True,1200
+Turning OFF fog and plasma,False,False,True,2400
+
