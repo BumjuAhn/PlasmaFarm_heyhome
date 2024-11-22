@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeyHome Controller</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>HeyHome Controller</h1>
+
+    <div class="status">
+        <strong>Status:</strong> <span id="status">{{ status }}</span>
+    </div>
+
+    <div style="text-align: center;">
+        <button onclick="startHeyHome()">Start</button>
+        <button onclick="stopHeyHome()">Stop</button>
+    </div>
+
+    <h2>Cycle Steps</h2>
+    <table>
+        <tr>
+            <th>Description</th>
+            <th>Power1</th>
+            <th>Power2</th>
+            <th>Power3</th>
+            <th>Duration</th>
+        </tr>
+        {% for step in steps %}
+        <tr>
+            <td>{{ step.description }}</td>
+            <td>{{ step.power1 }}</td>
+            <td>{{ step.power2 }}</td>
+            <td>{{ step.power3 }}</td>
+            <td>{{ step.duration }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align: center;">
+        <a href="/edit" class="button">Edit Steps</a>
+    </div>
+
+    <script>
+        async function startHeyHome() {
+            try {
+                const response = await fetch('/start', { method: 'POST' });
+                const data = await response.json();
+                document.getElementById('status').innerText = "Running";
+                alert(data.message);
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        }
+
+        async function stopHeyHome() {
+            try {
+                const response = await fetch('/stop', { method: 'POST' });
+                const data = await response.json();
+                document.getElementById('status').innerText = "Stopped";
+                alert(data.message);
+            } catch (error) {
+                alert(`Error: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

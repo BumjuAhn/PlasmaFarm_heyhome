@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Steps</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1>Edit Steps</h1>
+    <form method="post">
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Power1</th>
+                <th>Power2</th>
+                <th>Power3</th>
+                <th>Duration</th>
+            </tr>
+            {% for step in steps %}
+            <tr>
+                <td><input type="text" name="description_{{ loop.index0 }}" value="{{ step.description }}" required></td>
+                <td>
+                    <select name="power1_{{ loop.index0 }}">
+                        <option value="True" {% if step.power1 == 'True' %}selected{% endif %}>True</option>
+                        <option value="False" {% if step.power1 == 'False' %}selected{% endif %}>False</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="power2_{{ loop.index0 }}">
+                        <option value="True" {% if step.power2 == 'True' %}selected{% endif %}>True</option>
+                        <option value="False" {% if step.power2 == 'False' %}selected{% endif %}>False</option>
+                    </select>
+                </td>
+                <td>
+                    <select name="power3_{{ loop.index0 }}">
+                        <option value="True" {% if step.power3 == 'True' %}selected{% endif %}>True</option>
+                        <option value="False" {% if step.power3 == 'False' %}selected{% endif %}>False</option>
+                    </select>
+                </td>
+                <td><input type="number" name="duration_{{ loop.index0 }}" value="{{ step.duration }}" required></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Save Changes</button>
+    </form>
+    <div style="text-align: center;">
+        <a href="/">Go Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Step</title>
+</head>
+<body>
+    <h1>Add New Step</h1>
+    <form action="/add" method="post">
+        <label>Description:</label><br>
+        <input type="text" name="description" required><br>
+        <label>Power1:</label><br>
+        <select name="power1">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select><br>
+        <label>Power2:</label><br>
+        <select name="power2">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select><br>
+        <label>Power3:</label><br>
+        <select name="power3">
+            <option value="True">True</option>
+            <option value="False">False</option>
+        </select><br>
+        <label>Duration (seconds):</label><br>
+        <input type="number" name="duration" required><br><br>
+        <button type="submit">Add Step</button>
+    </form>
+</body>
+</html>
