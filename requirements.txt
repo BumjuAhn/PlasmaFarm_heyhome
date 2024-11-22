@@ -1,3 +1,7 @@
-requests==2.31.0
-mysql-connector-python==8.0.33
-pycryptodome==3.18.0
+requests
+mysql-connector-python
+pycryptodome
+tuya-connector-python
+python-dotenv
+tuya-iot-py-sdk
+influxdb-client

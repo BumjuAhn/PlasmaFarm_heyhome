@@ -3,34 +3,24 @@ import json
 import time
 import mysql.connector
 from datetime import datetime
+from dotenv import load_dotenv
+import os
 
+# .env 파일 로드
+load_dotenv()
 
-def read_json(filename):
-    """
-    JSON 파일에서 설정 정보를 읽는 함수.
-    :param filename: 읽을 JSON 파일 경로
-    :return: JSON 데이터를 딕셔너리로 반환
-    """
-    try:
-        with open(filename, "r") as file:
-            return json.load(file)
-    except Exception as e:
-        print(f"Error reading {filename}: {e}")
-        return {}
+# 환경 변수 로드
+BASE_URL = os.getenv("BASE_URL")
+ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+DEVICE_ID = os.getenv("DEVICE_ID")
 
-
-# 파일 경로 설정
-CONFIG_FILE = "config.json"
-TOKEN_FILE = "token.json"
-DB_CONFIG_FILE = "db_config.json"
-
-# 설정 읽기
-config = read_json(CONFIG_FILE)
-token_data = read_json(TOKEN_FILE)
-db_config = read_json(DB_CONFIG_FILE)
-
-BASE_URL = config.get("base_url", "")
-ACCESS_TOKEN = token_data.get("access_token", "")
+DB_CONFIG = {
+    "host": os.getenv("DB_HOST"),
+    "port": int(os.getenv("DB_PORT", 3306)),  # 기본 포트는 3306
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+    "database": os.getenv("DB_NAME"),
+}
 
 # 헤더 설정
 HEADERS = {
@@ -44,7 +34,7 @@ def initialize_db():
     데이터베이스 초기화 함수. 테이블이 없으면 생성.
     """
     try:
-        conn = mysql.connector.connect(**db_config)
+        conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
         cursor.execute("""
             CREATE TABLE IF NOT EXISTS power_status (
@@ -72,7 +62,7 @@ def save_to_db(device_id, states, description):
     :param description: 단계 설명
     """
     try:
-        conn = mysql.connector.connect(**db_config)
+        conn = mysql.connector.connect(**DB_CONFIG)
         cursor = conn.cursor()
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         cursor.execute("""
@@ -141,7 +131,10 @@ def cycle_control(device_id):
 
 
 if __name__ == "__main__":
-    DEVICE_ID = "50450710e8db84f198f8"  # 멀티탭 장치 ID
+    # 필수 환경 변수 체크
+    if not all([BASE_URL, ACCESS_TOKEN, DEVICE_ID]):
+        print("Error: Missing required environment variables. Please check your .env file.")
+        exit(1)
 
     # 데이터베이스 초기화
     initialize_db()

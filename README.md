@@ -7,12 +7,12 @@ python3 start.py
 ```
 - 백그라운드 실행
 ```
-nohup python3 -u start.py > output.log 2>&1 &
+nohup python3 -u heyhome.py &
 ```
 - 로그 보기
 ```
-cat output.log
-tail -f output.log
+cat log_file.log
+tail -f log_file.log
 ```
 - 실행 확인
 ```
